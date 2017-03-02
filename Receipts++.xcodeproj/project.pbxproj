@@ -62,13 +62,10 @@
 			children = (
 				3FFC694D1E68AD7F00F321C2 /* AppDelegate.h */,
 				3FFC694E1E68AD7F00F321C2 /* AppDelegate.m */,
-				3FFC69501E68AD7F00F321C2 /* ViewController.h */,
-				3FFC69511E68AD7F00F321C2 /* ViewController.m */,
-				3FFC69531E68AD7F00F321C2 /* Main.storyboard */,
-				3FFC69591E68AD7F00F321C2 /* Assets.xcassets */,
-				3FFC695B1E68AD7F00F321C2 /* LaunchScreen.storyboard */,
-				3FFC695E1E68AD7F00F321C2 /* Info.plist */,
-				3FFC69561E68AD7F00F321C2 /* Receipts__.xcdatamodeld */,
+				3FFC69671E68B0A300F321C2 /* UI */,
+				3FFC69661E68B0A300F321C2 /* Model */,
+				3FFC69651E68B0A300F321C2 /* Controller */,
+				3FFC69641E68B0A200F321C2 /* View */,
 				3FFC694A1E68AD7F00F321C2 /* Supporting Files */,
 			);
 			path = "Receipts++";
@@ -77,9 +74,44 @@
 		3FFC694A1E68AD7F00F321C2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3FFC69591E68AD7F00F321C2 /* Assets.xcassets */,
+				3FFC695E1E68AD7F00F321C2 /* Info.plist */,
 				3FFC694B1E68AD7F00F321C2 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3FFC69641E68B0A200F321C2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		3FFC69651E68B0A300F321C2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3FFC69501E68AD7F00F321C2 /* ViewController.h */,
+				3FFC69511E68AD7F00F321C2 /* ViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		3FFC69661E68B0A300F321C2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3FFC69561E68AD7F00F321C2 /* Receipts__.xcdatamodeld */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		3FFC69671E68B0A300F321C2 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				3FFC69531E68AD7F00F321C2 /* Main.storyboard */,
+				3FFC695B1E68AD7F00F321C2 /* LaunchScreen.storyboard */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
