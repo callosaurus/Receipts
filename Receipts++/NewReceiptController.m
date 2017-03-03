@@ -63,7 +63,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.accessoryType = cell.accessoryType == UITableViewCellAccessoryCheckmark ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
+    cell.accessoryType = (cell.accessoryType == UITableViewCellAccessoryCheckmark) ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
+    
+    //prevents greying of tableView cell after press
+    [tableView reloadData];
     
     Tag *selectedTag = self.coreDataManager.fetchedTags[indexPath.row];
     
@@ -88,8 +91,8 @@
     self.receiptToAdd.note = self.descriptionTextField.text;
     self.receiptToAdd.timeStamp = self.datePicker.date;
     
-    NSArray *tagArray = [self.selectedTags allObjects];
-    for (Tag *tag in tagArray) {
+    NSArray *tagArrayToBeAdded = [self.selectedTags allObjects];
+    for (Tag *tag in tagArrayToBeAdded) {
         [self.receiptToAdd setValue:tag forKey:@"receiptToTag"];
     }
     
