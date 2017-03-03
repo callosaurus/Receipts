@@ -14,6 +14,8 @@
 		3FFC69581E68AD7F00F321C2 /* Receipts__.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3FFC69561E68AD7F00F321C2 /* Receipts__.xcdatamodeld */; };
 		3FFC695A1E68AD7F00F321C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FFC69591E68AD7F00F321C2 /* Assets.xcassets */; };
 		3FFC695D1E68AD7F00F321C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FFC695B1E68AD7F00F321C2 /* LaunchScreen.storyboard */; };
+		3FFC696A1E68C00200F321C2 /* NewReceiptController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFC69691E68C00200F321C2 /* NewReceiptController.m */; };
+		3FFC696D1E68C5C500F321C2 /* ReceiptCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFC696C1E68C5C500F321C2 /* ReceiptCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,10 @@
 		3FFC69591E68AD7F00F321C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3FFC695C1E68AD7F00F321C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3FFC695E1E68AD7F00F321C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3FFC69681E68C00200F321C2 /* NewReceiptController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewReceiptController.h; sourceTree = "<group>"; };
+		3FFC69691E68C00200F321C2 /* NewReceiptController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewReceiptController.m; sourceTree = "<group>"; };
+		3FFC696B1E68C5C500F321C2 /* ReceiptCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiptCell.h; sourceTree = "<group>"; };
+		3FFC696C1E68C5C500F321C2 /* ReceiptCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceiptCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +90,8 @@
 		3FFC69641E68B0A200F321C2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3FFC696B1E68C5C500F321C2 /* ReceiptCell.h */,
+				3FFC696C1E68C5C500F321C2 /* ReceiptCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -93,6 +101,8 @@
 			children = (
 				3FFC69501E68AD7F00F321C2 /* ViewController.h */,
 				3FFC69511E68AD7F00F321C2 /* ViewController.m */,
+				3FFC69681E68C00200F321C2 /* NewReceiptController.h */,
+				3FFC69691E68C00200F321C2 /* NewReceiptController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -185,9 +195,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FFC696D1E68C5C500F321C2 /* ReceiptCell.m in Sources */,
 				3FFC69581E68AD7F00F321C2 /* Receipts__.xcdatamodeld in Sources */,
 				3FFC69521E68AD7F00F321C2 /* ViewController.m in Sources */,
 				3FFC694F1E68AD7F00F321C2 /* AppDelegate.m in Sources */,
+				3FFC696A1E68C00200F321C2 /* NewReceiptController.m in Sources */,
 				3FFC694C1E68AD7F00F321C2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

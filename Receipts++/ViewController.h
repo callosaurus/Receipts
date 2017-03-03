@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NewReceiptController.h"
+#import <CoreData/CoreData.h>
+
+
 
 @interface ViewController : UIViewController
 
+//@property (nonatomic) NewReceiptController *addNewController;
 
 @end
 
