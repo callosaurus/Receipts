@@ -11,5 +11,6 @@
 @interface NewReceiptController : UIViewController
 
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic) NSArray *tagsArray;
 
 @end
