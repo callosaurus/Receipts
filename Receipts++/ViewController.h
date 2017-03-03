@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "NewReceiptController.h"
 #import <CoreData/CoreData.h>
-
+#import "CoreDataManager.h"
 
 
 @interface ViewController : UIViewController
 
-//@property (nonatomic) NewReceiptController *addNewController;
+@property (nonatomic) CoreDataManager *coreDataManager;
+
 
 @end
 

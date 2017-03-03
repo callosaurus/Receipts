@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tagTableView;
 @property (nonatomic, strong) NSMutableSet<Tag*> *selectedTags;
 
+@property (nonatomic) Receipt *receiptToAdd;
 
 @end
 
@@ -25,31 +26,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.coreDataManager = [CoreDataManager sharedInstance];
     self.selectedTags = [[NSMutableSet alloc]init];
+    [self.tagTableView reloadData];
     
 }
 
-- (IBAction)doneButtonPressed:(UIButton *)sender {
-    
-    //make new receipt
-    Receipt *newReceipt = [NSEntityDescription insertNewObjectForEntityForName:@"Receipt" inManagedObjectContext:self.managedObjectContext];
-    
-    NSNumberFormatter *numFormatter = [[NSNumberFormatter alloc] init];
-    numFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-    NSNumber *receiptAmount = [numFormatter numberFromString:self.amountTextField.text];
-    
-    newReceipt.amount = [receiptAmount floatValue];
-    newReceipt.note = self.descriptionTextField.text;
-    newReceipt.timeStamp = self.datePicker.date;
-    newReceipt.receiptToTag = self.selectedTags;
-    
-    NSError *error;
-    if (![self.managedObjectContext save:&error]){
-        
-    }
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == self.amountTextField) {
@@ -64,26 +46,26 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc]init];
-    Tag *tag = self.tagsArray[indexPath.row];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tagCell" forIndexPath:indexPath];
+    Tag *tag = self.coreDataManager.fetchedTags[indexPath.row];
     
     UILabel *textLabel = [UILabel new];
     [cell addSubview: textLabel];
-    
     cell.textLabel.text = tag.tagName;
+    
     return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.tagsArray.count;
+    return self.coreDataManager.fetchedTags.count;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.accessoryType = cell.accessoryType == UITableViewCellAccessoryCheckmark ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
     
-    Tag *selectedTag = self.tagsArray[indexPath.row];
+    Tag *selectedTag = self.coreDataManager.fetchedTags[indexPath.row];
     
     if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
         [self.selectedTags addObject:selectedTag];
@@ -92,5 +74,36 @@
     }
 }
 
+- (IBAction)doneButtonPressed:(UIButton *)sender {
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Receipt" inManagedObjectContext:self.coreDataManager.managedObjectContext];
+    self.receiptToAdd = [[Receipt alloc] initWithEntity:entity insertIntoManagedObjectContext:self.coreDataManager.managedObjectContext];
+    
+    //make new receipt
+    NSNumberFormatter *numFormatter = [[NSNumberFormatter alloc] init];
+    numFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+    NSNumber *receiptAmount = [numFormatter numberFromString:self.amountTextField.text];
+    
+    self.receiptToAdd.amount = [receiptAmount floatValue];
+    self.receiptToAdd.note = self.descriptionTextField.text;
+    self.receiptToAdd.timeStamp = self.datePicker.date;
+    
+    NSArray *tagArray = [self.selectedTags allObjects];
+    for (Tag *tag in tagArray) {
+        [self.receiptToAdd setValue:tag forKey:@"receiptToTag"];
+    }
+    
+//    self.receiptToAdd.receiptToTag = self.selectedTags;
+    
+//    NSError *error;
+//    if (![self.managedObjectContext save:&error]){
+//        
+//    }
+    
+        [self.coreDataManager.managedObjectContext save:nil];
+     
+         
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end

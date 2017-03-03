@@ -10,6 +10,7 @@
 #import "NewReceiptController.h"
 #import "ReceiptCell.h"
 #import "Receipts__+CoreDataModel.h"
+
 #import "AppDelegate.h"
 
 
@@ -28,22 +29,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    self.tagsArray = [NSArray arrayWithObjects: @"Personal", @"Family", @"Business", nil];
-    
     AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     self.managedObjectContext = appDel.managedObjectContext;
-    //make tags
-    
+    self.coreDataManager = [CoreDataManager sharedInstance];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self fetchTags];
-//    if (self.tagsArray.count == 0) {
-//        [self createTags];
-//    }
-    
-    [self fetchReceipt];
+    [self.coreDataManager fetchTags];
+    [self.coreDataManager fetchReceipts];
     [self.receiptTableView reloadData];
 }
 
@@ -52,63 +47,57 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)fetchReceipt
-{
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Receipt" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSError *readError;
-    
-    self.receiptsArray = [self.managedObjectContext executeFetchRequest:fetchRequest error:&readError];
-    
-    NSLog(@"%@", self.receiptsArray);
-}
+//- (void)fetchReceipt
+//{
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Receipt" inManagedObjectContext:self.managedObjectContext];
+//    [fetchRequest setEntity:entity];
+//    
+//    NSError *readError;
+//    
+//    self.receiptsArray = [self.managedObjectContext executeFetchRequest:fetchRequest error:&readError];
+//    
+//    NSLog(@"%@", self.receiptsArray);
+//}
 
 //-(void)createTags {
 //    NSError *error;
 //    
-//    // Create new object
-//    Tag *tag1 = [NSEntityDescription
-//                 insertNewObjectForEntityForName:@"Tag"
-//                 inManagedObjectContext:self.managedObjectContext];
+//    NSEntityDescription *tagEntityDescription = [NSEntityDescription entityForName:@"Tag" inManagedObjectContext:self.managedObjectContext];
+//    Tag *tag1 = [[Tag alloc] initWithEntity:tagEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
 //    tag1.tagName = @"Personal";
-//    
-//    Tag *tag2 = [NSEntityDescription
-//                 insertNewObjectForEntityForName:@"Tag"
-//                 inManagedObjectContext:self.managedObjectContext];
+//
+//    Tag *tag2 = [[Tag alloc] initWithEntity:tagEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
 //    tag2.tagName = @"Family";
-//    
-//    Tag *tag3 = [NSEntityDescription
-//                 insertNewObjectForEntityForName:@"Tag"
-//                 inManagedObjectContext:self.managedObjectContext];
+//
+//    Tag *tag3 = [[Tag alloc] initWithEntity:tagEntityDescription insertIntoManagedObjectContext:self.managedObjectContext];
 //    tag3.tagName = @"Business";
 //    
-//    // Save object
 //    if (![self.managedObjectContext save:&error]) {
 //        // Handle the error.
 //    }
 //    
 //    [self fetchTags];
+//    
 //}
 
--(void) fetchTags
-{
-    NSError *error;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    self.tagsArray = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    
-    if (self.tagsArray == nil) {
-        // Handle the error.
-    }
-}
+//-(void) fetchTags
+//{
+//    NSError *error;
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag" inManagedObjectContext:self.managedObjectContext];
+//    [fetchRequest setEntity:entity];
+//    
+//    NSArray *returnedArray = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+//    self.tagsArray = returnedArray;
+//    
+//    if (self.tagsArray == nil) {
+//        // Handle the error.
+//    }
+//}
 
 //- (void)createReceipt {
-//    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Receipt"
-//                                                         inManagedObjectContext:self.managedObjectContext];
+//    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Receipt" inManagedObjectContext:self.managedObjectContext];
 //    Receipt *receipt = [[Receipt alloc] initWithEntity:entityDescription
 //                        insertIntoManagedObjectContext:self.managedObjectContext];
 //    
@@ -124,40 +113,44 @@
 //    
 //}
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     if ([[segue identifier] isEqualToString:@"addNewReceipt"]) {
-        NewReceiptController *controller =  segue.destinationViewController;
-        controller.managedObjectContext = self.managedObjectContext;
-        controller.tagsArray = self.tagsArray;
+        
+        NewReceiptController *controller = [NewReceiptController new];
+//        controller.managedObjectContext = self.managedObjectContext;
+//        controller.tagsArray = self.tagsArray;
+        controller = segue.destinationViewController;
+        [self.receiptTableView reloadData];
     }
 }
 
 #pragma mark - Table View -
 
-//-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    return self.receiptsArray.count;
-//}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [self.coreDataManager.fetchedTags count];
+}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
-    return self.receiptsArray.count;
+//    return self.receiptsArray.count;
+    return [[self.coreDataManager fetchReceipts]count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ReceiptCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    Receipt *receipt = self.receiptsArray/*[indexPath.section]*/[indexPath.row];
+    Receipt *receipt = [[self.coreDataManager fetchReceipts]objectAtIndex:indexPath.row];
+//    Receipt *receipt = self.receiptsArray/*[indexPath.section]*/[indexPath.row];
     cell.noteLabel.text = receipt.note;
     cell.amountLabel.text = [NSString stringWithFormat:@"%.2f",receipt.amount];
     return cell;
 }
 
-//-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    
-//}
-
-
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    Tag *tagSectionName = self.coreDataManager.fetchedTags[section];
+    return tagSectionName.tagName;
+}
 
 @end

@@ -150,7 +150,7 @@
                                     <constraint firstAttribute="height" constant="180" id="Xz3-by-z8j"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="rAf-q6-rBn">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tagCell" id="rAf-q6-rBn">
                                         <rect key="frame" x="0.0" y="28" width="124" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rAf-q6-rBn" id="voj-YK-ICg">
@@ -158,23 +158,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="qDR-te-i4T">
-                                        <rect key="frame" x="0.0" y="72" width="124" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qDR-te-i4T" id="tvS-TR-E1Q">
-                                            <rect key="frame" x="0.0" y="0.0" width="124" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="1lj-Xm-cqA">
-                                        <rect key="frame" x="0.0" y="116" width="124" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1lj-Xm-cqA" id="d7N-eg-T7w">
-                                            <rect key="frame" x="0.0" y="0.0" width="124" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Z4i-p4-lLA" id="a0p-05-uJG"/>
+                                    <outlet property="delegate" destination="Z4i-p4-lLA" id="356-SS-jSF"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yJ7-Ql-d3Q">
                                 <rect key="frame" x="164" y="489" width="46" height="30"/>
@@ -213,7 +201,7 @@
                         <outlet property="amountTextField" destination="n7e-2S-fLM" id="SAl-pn-pM0"/>
                         <outlet property="datePicker" destination="OsA-Fc-gzB" id="9by-lP-sVl"/>
                         <outlet property="descriptionTextField" destination="Sn5-ff-mCh" id="JgG-Ib-2bm"/>
-                        <outlet property="tagTableView" destination="Esg-S8-BzH" id="KvP-rX-5Sj"/>
+                        <outlet property="tagTableView" destination="Esg-S8-BzH" id="Zf8-qr-QZ8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n6x-lg-MV5" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+#import "CoreDataManager.h"
 
 @interface NewReceiptController : UIViewController
 
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic) NSArray *tagsArray;
+@property (nonatomic) CoreDataManager *coreDataManager;
+//@property (nonatomic, strong) NSArray *tagsArray;
 
 @end
